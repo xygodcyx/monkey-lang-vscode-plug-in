@@ -1,0 +1,59 @@
+{
+  "name": "monkey-lang-vscode-plug-in",
+  "displayName": "monkey-lang-vscode-plug-in",
+  "description": "monkey-lang-vscode-plug-in",
+  "version": "0.0.2",
+  "type": "module",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "main": "./extension/index.js",
+  "categories": [
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onCommand:monkey.runFile",
+    "onLanguage:monkey"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "monkey.runFile",
+        "title": "Run Monkey Script"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "monkey.runFile",
+          "when": "resourceLangId == monkey",
+          "group": "navigation"
+        }
+      ]
+    },
+    "languages": [
+      {
+        "id": "monkey",
+        "aliases": [
+          "Monkey",
+          "monkey"
+        ],
+        "extensions": [
+          ".mky"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "monkey",
+        "scopeName": "source.monkey",
+        "path": "./syntaxes/monkey.tmLanguage.json"
+      }
+    ]
+  },
+  "dependencies": {
+    "glob": "^11.0.3",
+    "prompt-sync": "^4.2.0"
+  }
+}
