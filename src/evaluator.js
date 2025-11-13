@@ -137,14 +137,14 @@ export default async function Eval(node, env) {
         const existing = env.get(node.name.value);
         if (!existing) {
             // 如果不存在,则直接在全局作用域中赋值
-            console.log(
-                `被动设置到全局作用域 ${globalEnv} ${node.name.value} : ${val.Type()} -> ${val.Inspect()}`
-            );
+            // console.log(
+            //     `被动设置到全局作用域 ${globalEnv} ${node.name.value} : ${val.Type()} -> ${val.Inspect()}`
+            // );
             globalEnv.set(node.name.value, val);
         } else {
-            console.log(
-                `设置到当前作用域 ${env} ${node.name.value} : ${val.Type()} -> ${val.Inspect()}`
-            );
+            // console.log(
+            //     `设置到当前作用域 ${env} ${node.name.value} : ${val.Type()} -> ${val.Inspect()}`
+            // );
             env.set(node.name.value, val);
         }
         return val;

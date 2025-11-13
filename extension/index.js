@@ -2,8 +2,10 @@ import * as vscode from 'vscode'
 import path from 'path'
 
 export function activate(context) {
-  console.log('Monkey extension is now active!')
-
+  /**
+   * @type {import('vscode').Terminal}
+   */
+  let terminal = null
   const disposable = vscode.commands.registerCommand(
     'monkey.runFile',
     () => {
@@ -26,8 +28,11 @@ export function activate(context) {
       // 构造命令（保证能找到 main.js）
       const command = `node "${mainPath}" "${filePath}"`
 
-      const terminal =
-        vscode.window.createTerminal('Monkey REPL')
+      if (terminal) {
+        terminal.dispose()
+        terminal = null
+      }
+      terminal = vscode.window.createTerminal('Monkey REPL')
       terminal.show()
       terminal.sendText(command)
     }

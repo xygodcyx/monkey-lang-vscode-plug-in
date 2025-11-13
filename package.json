@@ -8,6 +8,11 @@
     "vscode": "^1.80.0"
   },
   "main": "./extension/index.js",
+  "publisher": "xygodcyx",
+  "repository": {
+    "url": "https://github.com/xygodcyx/monkey-lang-vscode-plug-in"
+  },
+  "license": "MIT",
   "categories": [
     "Programming Languages"
   ],
@@ -51,9 +56,5 @@
         "path": "./syntaxes/monkey.tmLanguage.json"
       }
     ]
-  },
-  "dependencies": {
-    "glob": "^11.0.3",
-    "prompt-sync": "^4.2.0"
   }
 }
