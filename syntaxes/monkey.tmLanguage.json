@@ -57,7 +57,7 @@
 		"comment": {
 			"patterns": [
 				{
-					"match": "//.*$",
+					"match": "#.*$",
 					"name": "comment.line.double-slash.monkey"
 				}
 			]

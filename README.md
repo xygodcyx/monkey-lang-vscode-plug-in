@@ -1,7 +1,13 @@
-# monkey-lang-vscode-plug-in README
+# Monkey Language VSCode Plugin
 
-## Features
+## Dependencies
 
-支持monkey语法高亮
+This plugin requires the following global npm packages:
 
-**Enjoy!**
+1. `monkey-js-interpreter`
+
+To install the package, run:
+
+```bash
+npm install -g monkey-js-interpreter
+```

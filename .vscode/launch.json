@@ -11,6 +11,9 @@
 			"request": "launch",
 			"args": [
 				"--extensionDevelopmentPath=${workspaceFolder}"
+			],
+			"runtimeArgs": [
+				"--no-warnings"
 			]
 		}
 	]

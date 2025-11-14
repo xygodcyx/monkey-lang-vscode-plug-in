@@ -5,10 +5,12 @@
   "version": "0.0.2",
   "type": "module",
   "engines": {
-    "vscode": "^1.80.0"
+    "vscode": "^1.80.0",
+    "monkey-js-interpreter": "^1.0.1"
   },
   "main": "./extension/index.js",
   "publisher": "xygodcyx",
+  "icon": "./icons/monkey.png",
   "repository": {
     "url": "https://github.com/xygodcyx/monkey-lang-vscode-plug-in"
   },
@@ -46,6 +48,10 @@
         "extensions": [
           ".mky"
         ],
+        "icon": {
+          "light": "./icons/monkey-light.png",
+          "dark": "./icons/monkey-dark.png"
+        },
         "configuration": "./language-configuration.json"
       }
     ],
@@ -56,5 +62,10 @@
         "path": "./syntaxes/monkey.tmLanguage.json"
       }
     ]
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.12"
   }
 }
