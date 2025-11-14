@@ -20,6 +20,7 @@
   ],
   "activationEvents": [
     "onCommand:monkey.runFile",
+    "onCommand:monkey.checkDependencies",
     "onLanguage:monkey"
   ],
   "contributes": {
@@ -27,6 +28,10 @@
       {
         "command": "monkey.runFile",
         "title": "Run Monkey Script"
+      },
+      {
+        "command": "monkey.checkDependencies",
+        "title": "Check Dependencies"
       }
     ],
     "menus": {

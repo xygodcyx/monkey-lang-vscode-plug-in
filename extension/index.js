@@ -7,15 +7,14 @@ import {
 } from 'vscode-languageclient/node.js'
 import { execCommand, showMessage } from './help.js'
 
-export async function activate(context) {
-  // check
+async function checkDependencies(userCheck = false) {
   const checkMonkey = await execCommand(
     'npm list -g monkey-js-interpreter'
   )
   if (!checkMonkey.success) {
     const selection = await showMessage(
       'Warning',
-      'Warning: "monkey-js-interpreter" is not installed globally. Please run: npm install -g monkey-js-interpreter',
+      '"monkey-js-interpreter" is not installed globally. Please run: npm install -g monkey-js-interpreter',
       'Install Now'
     )
     switch (selection) {
@@ -24,17 +23,37 @@ export async function activate(context) {
           'npm install -g monkey-js-interpreter'
         )
         if (installMonkey.success) {
-          vscode.window.showInformationMessage(
+          showMessage(
+            'Info',
             'Successfully installed "monkey-js-interpreter".'
           )
         } else {
-          vscode.window.showErrorMessage(
+          showMessage(
+            'Error',
             'Failed to install "monkey-js-interpreter". Please try manually.'
           )
         }
         break
     }
+  } else if (userCheck) {
+    showMessage(
+      'Info',
+      'Successfully installed "monkey-js-interpreter".'
+    )
   }
+  return checkMonkey
+}
+
+export async function activate(context) {
+  // check dependencies
+  await checkDependencies()
+  const checked = vscode.commands.registerCommand(
+    'monkey.checkDependencies',
+    () => {
+      checkDependencies(true)
+    }
+  )
+  context.subscriptions.push(checked)
 
   // run script
 
@@ -44,12 +63,10 @@ export async function activate(context) {
   let terminal = null
   const disposable = vscode.commands.registerCommand(
     'monkey.runFile',
-    () => {
+    async () => {
       const editor = vscode.window.activeTextEditor
       if (!editor) {
-        vscode.window.showErrorMessage(
-          'No active Monkey file!'
-        )
+        await showMessage('Error', 'No active Monkey file!')
         return
       }
 
@@ -95,9 +112,7 @@ export async function activate(context) {
     },
   }
 
-  // Options to control the language client
   let clientOptions = {
-    // Register the server for plain text documents
     documentSelector: [
       { scheme: 'file', language: 'monkey' },
     ],
@@ -108,7 +123,6 @@ export async function activate(context) {
         ),
     },
 
-    // ⭐⭐ 添加 signatureHelpProvider
     capabilities: {
       textDocument: {
         signatureHelp: {

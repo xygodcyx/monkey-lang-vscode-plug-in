@@ -22,7 +22,7 @@ export async function execCommand(command) {
 export async function showMessage(type, ...message) {
   return new Promise((resolve, reject) => {
     switch (type) {
-      case 'Warning':
+      case 'Warning': {
         vscode.window
           .showWarningMessage(
             message[0],
@@ -30,6 +30,25 @@ export async function showMessage(type, ...message) {
           )
           .then(resolve)
         break
+      }
+      case 'Info': {
+        vscode.window
+          .showInformationMessage(
+            message[0],
+            ...message.slice(1)
+          )
+          .then(resolve)
+        break
+      }
+      case 'Error': {
+        vscode.window
+          .showErrorMessage(
+            message[0],
+            ...message.slice(1)
+          )
+          .then(resolve)
+        break
+      }
     }
   })
 }
