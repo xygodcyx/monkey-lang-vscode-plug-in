@@ -2,7 +2,7 @@
   "name": "monkey-lang-vscode-plug-in",
   "displayName": "monkey-lang-vscode-plug-in",
   "description": "monkey-lang-vscode-plug-in",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "type": "module",
   "engines": {
     "vscode": "^1.80.0",
