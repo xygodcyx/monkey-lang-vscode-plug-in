@@ -72,7 +72,7 @@ export async function activate(context) {
 
       const filePath = editor.document.fileName
 
-      const command = `monkey "${filePath}"`
+      const command = `npx monkey "${filePath}"`
 
       if (terminal) {
         terminal.dispose()
