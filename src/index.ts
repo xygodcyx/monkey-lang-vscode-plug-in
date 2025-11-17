@@ -5,7 +5,11 @@ import {
   LanguageClient,
   TransportKind,
 } from 'vscode-languageclient/node.js'
-import { execCommand, showMessage } from './help.js'
+import {
+  checkCommand,
+  execCommand,
+  showMessage,
+} from './help.js'
 
 async function checkDependencies(userCheck = false) {
   const checkMonkey = await execCommand(
@@ -44,12 +48,13 @@ async function checkDependencies(userCheck = false) {
   return checkMonkey
 }
 
-export async function activate(context) {
+export async function activate(context: vscode.ExtensionContext) {
   // check dependencies
   await checkDependencies()
   const checked = vscode.commands.registerCommand(
     'monkey.checkDependencies',
     () => {
+      showMessage('Info', 'Monkey: CheckDependencies...')
       checkDependencies(true)
     }
   )
@@ -57,10 +62,7 @@ export async function activate(context) {
 
   // run script
 
-  /**
-   * @type {import('vscode').Terminal}
-   */
-  let terminal = null
+  let terminal: vscode.Terminal | null = null
   const disposable = vscode.commands.registerCommand(
     'monkey.runFile',
     async () => {
@@ -71,8 +73,9 @@ export async function activate(context) {
       }
 
       const filePath = editor.document.fileName
-
-      const command = `npx monkey "${filePath}"`
+      const hasMonkey = await checkCommand('monkey')
+      const command = `${hasMonkey.success ? 'monkey' : 'npx monkey'
+        } "${filePath}"`
 
       if (terminal) {
         terminal.dispose()
@@ -90,7 +93,7 @@ export async function activate(context) {
 
   // The server is implemented in node
   let serverModule = context.asAbsolutePath(
-    path.join('server', 'server.js')
+    path.join('out', 'server', 'server.js')
   )
   // The debug options for the server
   // --inspect=6009: runs the server in Node's Inspector mode so VS Code can attach to the server for debugging
@@ -148,7 +151,8 @@ export async function activate(context) {
   )
 
   // Start the client. This will also launch the server
-  context.subscriptions.push(client.start())
+  client.start()
+  context.subscriptions.push(client)
 }
 
-export function deactivate() {}
+export function deactivate() { }
