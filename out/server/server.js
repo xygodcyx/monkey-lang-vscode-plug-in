@@ -1,5 +1,5 @@
 // server/server.js
-import { createConnection, ProposedFeatures, CompletionItemKind, TextDocumentSyncKind, } from 'vscode-languageserver/node.js';
+import { createConnection, ProposedFeatures, CompletionItemKind, } from 'vscode-languageserver/node.js';
 // 建立 connection 与 document 管理器
 const connection = createConnection(ProposedFeatures.all);
 // const documents = new TextDocuments()
@@ -29,17 +29,17 @@ const connection = createConnection(ProposedFeatures.all);
 connection.onInitialize(() => {
     return {
         capabilities: {
-            textDocumentSync: TextDocumentSyncKind.Incremental,
-            // Completion：触发字符可按需填
-            completionProvider: {
-                triggerCharacters: ['.', '(', ','],
-                resolveProvider: false // 若要实现 resolve，则实现 onCompletionResolve
-            },
-            // Signature Help（参数提示）
-            signatureHelpProvider: {
-                triggerCharacters: ['(', ','],
-            },
-            hoverProvider: true,
+        // textDocumentSync: TextDocumentSyncKind.Incremental,
+        // Completion：触发字符可按需填
+        // completionProvider: {
+        //   triggerCharacters: ['.', '(', ','],
+        //   resolveProvider: false  // 若要实现 resolve，则实现 onCompletionResolve
+        // },
+        // // Signature Help（参数提示）
+        // signatureHelpProvider: {
+        //   triggerCharacters: ['(', ','],
+        // },
+        // hoverProvider: false,
         },
     };
 });
